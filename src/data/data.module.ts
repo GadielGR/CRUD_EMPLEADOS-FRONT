@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { EmpleadoImplementationRepository } from 'src/app/domain/repositories/empleado-implements.repository';
-import { EmpeladoRepository } from 'src/app/domain/repositories/empleado.repository';
+import { EmpeladoRepository } from 'src/domain/repositories/empleado.repository';
+import { EmpleadoImplementationRepository } from 'src/data/repositories/empleado/empleado-implementation.repository';
 import {
   empleadoCreateUseCaseProvider,
   empleadoDeleteUseCaseProvider,

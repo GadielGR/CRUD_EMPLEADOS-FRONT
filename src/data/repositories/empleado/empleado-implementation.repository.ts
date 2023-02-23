@@ -1,12 +1,18 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Empleado } from '../models/empleado.model';
-import { EmpeladoRepository } from './empleado.repository';
+import { Empleado } from '../../../domain/models/empleado.model';
+import { EmpeladoRepository } from '../../../domain/repositories/empleado.repository';
 import { environment } from 'src/environments/environment.development';
+import { Injectable } from '@angular/core';
 
+@Injectable({
+  providedIn: 'root',
+})
 export class EmpleadoImplementationRepository implements EmpeladoRepository {
   private base_endpoint = '/api/v1/';
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    // super();
+  }
 
   getAll(): Observable<Empleado[]> {
     return this.http.get<Empleado[]>(

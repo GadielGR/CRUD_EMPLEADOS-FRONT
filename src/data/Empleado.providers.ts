@@ -1,9 +1,10 @@
-import { EmpeladoRepository } from 'src/app/domain/repositories/empleado.repository';
-import { CreateEmpleadoUseCase } from 'src/app/domain/usecases/empleado/createEmpelado.usecase';
-import { DeleteEmpleadoUseCase } from 'src/app/domain/usecases/empleado/deleteEmpleado.usecase';
-import { GetAllEmpeladosUseCase } from 'src/app/domain/usecases/empleado/getEmpleado.usecase';
-import { GetOneEmpleadoUseCase } from 'src/app/domain/usecases/empleado/getOneEmpleado.usecase';
-import { UpdateEmpleadoUseCase } from 'src/app/domain/usecases/empleado/udpateEmpleado.usecase';
+import { EmpeladoRepository } from "src/domain/repositories/empleado.repository";
+import { CreateEmpleadoUseCase } from "src/domain/usecases/empleado/create-empelado.usecase";
+import { DeleteEmpleadoUseCase } from "src/domain/usecases/empleado/delete-empleado.usecase";
+import { GetAllEmpeladosUseCase } from "src/domain/usecases/empleado/get-empleado.usecase";
+import { GetOneEmpleadoUseCase } from "src/domain/usecases/empleado/get-one-empleado.usecase";
+import { UpdateEmpleadoUseCase } from "src/domain/usecases/empleado/udpate-empleado.usecase";
+
 
 const empleadoGetAllUseCaseFactory = (empleadoRepo: EmpeladoRepository) =>
   new GetAllEmpeladosUseCase(empleadoRepo);

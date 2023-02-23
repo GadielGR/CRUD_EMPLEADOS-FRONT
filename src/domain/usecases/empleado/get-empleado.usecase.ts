@@ -1,4 +1,4 @@
-import { UseCase } from "src/base/use-case";
+import { UseCase } from "src/domain/base/use-case";
 import { EmpeladoRepository } from "../../repositories/empleado.repository";
 import { Empleado } from "../../models/empleado.model";
 import { Observable } from "rxjs";
