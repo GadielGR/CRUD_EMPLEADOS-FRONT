@@ -76,3 +76,10 @@ Nodejs 18
 - [ ] Puesto Trabajo
   - [ ] Crear CRUD Puestos de Trabajo
   - [ ] Actualizar Formulario Empleado para usar catalogo Puesto de Trabajo
+
+# Capturas
+
+![Cargando el sistema](./doc/crud-empleados.png)
+![Listar Empleados](./doc/crud-empleados-1.png)
+![Detalles/Editar Empleado](./doc/crud-empleados-2.png)
+![Crear Empleado](./doc/crud-empleados-3.png)
