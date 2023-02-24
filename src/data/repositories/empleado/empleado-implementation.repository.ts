@@ -9,42 +9,36 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class EmpleadoImplementationRepository implements EmpeladoRepository {
-  private base_endpoint = '/api/v1/';
+  private base_endpoint = '/api/v1';
   constructor(private http: HttpClient) {
     // super();
   }
 
   getAll(): Observable<Empleado[]> {
     return this.http.get<Empleado[]>(
-      `${environment.URL_API}${this.base_endpoint}/user`
+      `${environment.URL_API}${this.base_endpoint}/empleado`
     );
   }
   getById(id: number): Observable<Empleado> {
-    let params = new HttpParams();
-    params = params.append('id', id);
     return this.http.get<Empleado>(
-      `${environment.URL_API}${this.base_endpoint}/user`,
-      { params }
+      `${environment.URL_API}${this.base_endpoint}/empleado/${id}`
     );
   }
   create(empleado: Empleado): Observable<Empleado> {
     return this.http.post<Empleado>(
-      `${environment.URL_API}${this.base_endpoint}/user`,
+      `${environment.URL_API}${this.base_endpoint}/empleado`,
       empleado
     );
   }
   update(empleado: Empleado): Observable<Empleado> {
     return this.http.put<Empleado>(
-      `${environment.URL_API}${this.base_endpoint}/user`,
+      `${environment.URL_API}${this.base_endpoint}/empleado/${empleado.id}`,
       empleado
     );
   }
   delete(id: number): Observable<void> {
-    let params = new HttpParams();
-    params = params.append('id', id);
     return this.http.delete<void>(
-      `${environment.URL_API}${this.base_endpoint}/user`,
-      { params }
+      `${environment.URL_API}${this.base_endpoint}/empleado/${id}`
     );
   }
 }

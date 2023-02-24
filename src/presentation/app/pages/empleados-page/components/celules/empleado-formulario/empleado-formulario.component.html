@@ -1,0 +1,119 @@
+<mat-card>
+  <mat-stepper [linear]="isLinear" #stepper>
+    <form [formGroup]="empleadoForm">
+      <mat-step [stepControl]="empleadoForm">
+        <ng-template matStepLabel>Empleado</ng-template>
+        <mat-form-field class="example-full-width">
+          <mat-label>Nombre</mat-label>
+          <input formControlName="nombreCompleto" matInput value="" />
+        </mat-form-field>
+        <table class="example-full-width" cellspacing="0">
+          <tr>
+            <td>
+              <mat-form-field appearance="fill">
+                <mat-label>Puesto de Trabajo</mat-label>
+                <input
+                  formControlName="puestoDeTrabajo"
+                  matInput
+                  placeholder="Director"
+                />
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field appearance="fill" floatLabel="always">
+                <mat-label>Salario</mat-label>
+                <input
+                  formControlName="salario"
+                  matInput
+                  type="number"
+                  class="example-right-align"
+                  placeholder="0"
+                />
+                <span matTextPrefix>$&nbsp;</span>
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
+
+        <p>
+          <mat-form-field appearance="fill">
+            <mat-label>Fecha Contratación</mat-label>
+            <input
+              formControlName="fechaDeContratacion"
+              matInput
+              [matDatepicker]="picker"
+            />
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </p>
+        <div>
+          <button mat-button (click)="cancelar(stepper)">Cancelar</button>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </mat-step>
+    </form>
+    <form [formGroup]="beneficiarioForm">
+      <mat-step [stepControl]="beneficiarioForm" label="Beneficiario">
+        <table class="example-full-width" cellspacing="0">
+          <tr>
+            <td>
+              <mat-form-field class="example-full-width">
+                <mat-label>Nombre</mat-label>
+                <input
+                  formControlName="nombreCompleto"
+                  matInput
+                  placeholder="Carlos Silva"
+                />
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field class="example-full-width">
+                <mat-label>Parentensco</mat-label>
+                <input
+                  formControlName="parentesco"
+                  matInput
+                  placeholder="Esposo, Hermano"
+                />
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <mat-form-field appearance="fill">
+              <mat-label>Sexo</mat-label>
+              <mat-select formControlName="sexo">
+                <mat-option *ngFor="let item of ['H', 'M']" [value]="item">
+                  {{ item }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </tr>
+        </table>
+        <p>
+          <mat-form-field appearance="fill">
+            <mat-label>Fecha Nacimiento</mat-label>
+            <input
+              formControlName="fechaDeNacimiento"
+              matInput
+              [matDatepicker]="Nacimientopicker"
+            />
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="Nacimientopicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #Nacimientopicker></mat-datepicker>
+          </mat-form-field>
+        </p>
+        <div>
+          <button mat-button (click)="cancelar(stepper)">Cancelar</button>
+          <button mat-button matStepperNext (click)="guardarEmpelado()">
+            Guardar
+          </button>
+        </div>
+      </mat-step>
+    </form>
+  </mat-stepper>
+</mat-card>

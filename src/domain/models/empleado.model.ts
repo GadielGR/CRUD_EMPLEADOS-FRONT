@@ -1,10 +1,12 @@
+import { Beneficiario } from "./beneficiario.model";
+
 export class Empleado {
   id: number;
   foto: string;
   nombreCompleto: string;
   puestoDeTrabajo: string;
-  salario: string;
+  salario: number;
   estatus: string;
-  fechaDeContratación: string;
-  idBeneficiario: string;
+  fechaDeContratacion: string;
+  beneficiario: Beneficiario;
 }
