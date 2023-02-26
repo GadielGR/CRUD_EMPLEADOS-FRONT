@@ -6,6 +6,15 @@ import { EmpleadoFormularioComponent } from './components/celules/empleado-formu
 import { Empleado } from 'src/domain/models/empleado.model';
 import { CreateEmpleadoUseCase } from 'src/domain/usecases/empleado/create-empelado.usecase';
 import { UpdateEmpleadoUseCase } from 'src/domain/usecases/empleado/udpate-empleado.usecase';
+import { Store } from '@ngrx/store';
+import { EmpleadosState } from '../../store/reducers/empleados.reducer';
+import { getEmpleados } from '../../store/actions/empleados.actions';
+import { selectEmpleado } from '../../store/selectors/empleado.selector';
+import { AppState } from '../../store/store';
+import { ConfirmMessageComponent } from '../../shared/celules/confirm-message/confirm-message.component';
+import { DeleteEmpleadoUseCase } from 'src/domain/usecases/empleado/delete-empleado.usecase';
+import { ModalService } from '../../shared/services/modal.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-empleados-page',
@@ -15,13 +24,18 @@ import { UpdateEmpleadoUseCase } from 'src/domain/usecases/empleado/udpate-emple
 export class EmpleadosPageComponent {
   empleados: Empleado[] = [];
   constructor(
+    private store: Store<AppState>,
     public dialog: MatDialog,
-    private getAllEmpleadosUseCase: GetAllEmpeladosUseCase,
+    private modalService: ModalService,
     private getOneEmpleadoUseCase: GetOneEmpleadoUseCase,
     private updateEmpleadoUseCase: UpdateEmpleadoUseCase,
-    private addEmpleadoUseCase: CreateEmpleadoUseCase
+    private addEmpleadoUseCase: CreateEmpleadoUseCase,
+    private deleteEmpleadoUseCase: DeleteEmpleadoUseCase
   ) {
     this.obtenerAllEmpleados();
+    this.store.subscribe((state) => {
+      this.empleados = state.empleados.empleados;
+    });
   }
 
   verDetalle(id: number) {
@@ -32,9 +46,7 @@ export class EmpleadosPageComponent {
   }
 
   obtenerAllEmpleados() {
-    this.getAllEmpleadosUseCase.execute(null).subscribe((resp) => {
-      this.empleados = resp;
-    });
+    this.store.dispatch(getEmpleados());
   }
 
   openDialog(empleado?: Empleado) {
@@ -57,5 +69,36 @@ export class EmpleadosPageComponent {
         }
       }
     });
+  }
+
+  deleteEmpleado(id: number) {
+    this.modalService.showDialogConfirm(
+      'Eliminar Empleado',
+      '¿Esta seguro que desesa eliminar este empleado?',
+      () => {
+        this.deleteEmpleadoUseCase.execute(id).subscribe(
+          (reps) => {
+            this.showMensajeExito();
+          },
+          (err: HttpErrorResponse) => {
+            if (err.status == 200) {
+              this.showMensajeExito();
+            } else {
+              this.showMensajeError(err);
+            }
+          }
+        );
+      }
+    );
+  }
+
+  showMensajeExito() {
+    this.modalService.showModalMessage(
+      'Empleado Eliminado',
+      'El empleado se ha eliminado correctamente.'
+    );
+  }
+  showMensajeError(err: HttpErrorResponse) {
+    this.modalService.showModalMessage('Error Eliminado', err.message);
   }
 }

@@ -1,2 +1,2 @@
 <app-empleados-options (agregarEmpleado)="openDialog()" (openModal)="openDialog()" ></app-empleados-options>
-<app-empleados-table (verDetalle)="verDetalle($event)" [data]="empleados"></app-empleados-table>
+<app-empleados-table (verDetalle)="verDetalle($event)" (deleteEmpleado)="deleteEmpleado($event)" [data]="empleados"></app-empleados-table>

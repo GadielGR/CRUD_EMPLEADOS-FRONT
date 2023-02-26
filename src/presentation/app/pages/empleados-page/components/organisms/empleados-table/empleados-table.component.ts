@@ -10,17 +10,14 @@ import {
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import {
-  EmpleadosTableDataSource,
-  EmpleadosTableItem,
-} from './empleados-table-datasource';
-import {MatTableDataSource} from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
 
 import { Empleado } from 'src/domain/models/empleado.model';
 
 interface RowHeader {
   title: string;
   data: string;
+  type?: string;
 }
 
 @Component({
@@ -30,25 +27,24 @@ interface RowHeader {
 })
 export class EmpleadosTableComponent implements OnChanges, AfterViewInit {
   @Output() verDetalle = new EventEmitter();
+  @Output() deleteEmpleado = new EventEmitter();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<Empleado>;
   @Input() data: Empleado[] = [];
   dataSource = new MatTableDataSource<Empleado>();
 
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns: Array<RowHeader> = [
     { title: 'id', data: 'id' },
     { title: 'Nombre', data: 'nombreCompleto' },
     { title: 'Puesto', data: 'puestoDeTrabajo' },
-    { title: 'Salario', data: 'salario' },
-    { title: 'fecha de Contratación', data: 'fechaDeContratacion' },
+    { title: 'Salario', data: 'salario', type: 'currency' },
+    { title: 'fecha de Contratación', data: 'fechaDeContratacion', type: 'date' },
   ];
 
   columns = [...this.displayedColumns.map((x) => x.data), 'actions'];
 
-  constructor() {
-  }
+  constructor() {}
 
   ngOnChanges(): void {
     this.dataSource.data = this.data;
@@ -63,5 +59,8 @@ export class EmpleadosTableComponent implements OnChanges, AfterViewInit {
 
   verDetalles(id: number) {
     this.verDetalle.emit(id);
+  }
+  deleteEmpleados(id: number) {
+    this.deleteEmpleado.emit(id);
   }
 }

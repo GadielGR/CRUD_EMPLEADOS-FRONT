@@ -33,25 +33,28 @@
               </mat-form-field>
             </td>
           </tr>
+          <tr>
+            <td>
+              <mat-form-field appearance="fill">
+                <mat-label>Fecha Contratación</mat-label>
+                <input
+                  formControlName="fechaDeContratacion"
+                  matInput
+                  [matDatepicker]="picker"
+                />
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </td>
+          </tr>
         </table>
-
-        <p>
-          <mat-form-field appearance="fill">
-            <mat-label>Fecha Contratación</mat-label>
-            <input
-              formControlName="fechaDeContratacion"
-              matInput
-              [matDatepicker]="picker"
-            />
-            <mat-datepicker-toggle
-              matIconSuffix
-              [for]="picker"
-            ></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-        </p>
-        <div>
-          <button mat-button (click)="cancelar(stepper)">Cancelar</button>
+        <div align="end">
+          <button mat-button color="warn" (click)="cancelar(stepper)">
+            Cancelar
+          </button>
           <button mat-button matStepperNext>Siguiente</button>
         </div>
       </mat-step>
@@ -82,34 +85,44 @@
             </td>
           </tr>
           <tr>
-            <mat-form-field appearance="fill">
-              <mat-label>Sexo</mat-label>
-              <mat-select formControlName="sexo">
-                <mat-option *ngFor="let item of ['H', 'M']" [value]="item">
-                  {{ item }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+            <td>
+              <mat-form-field appearance="fill">
+                <mat-label>Sexo</mat-label>
+                <mat-select formControlName="sexo">
+                  <mat-option *ngFor="let item of ['H', 'M']" [value]="item">
+                    {{ item }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field appearance="fill">
+                <mat-label>Fecha Nacimiento</mat-label>
+                <input
+                  formControlName="fechaDeNacimiento"
+                  matInput
+                  [matDatepicker]="Nacimientopicker"
+                />
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="Nacimientopicker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #Nacimientopicker></mat-datepicker>
+              </mat-form-field>
+            </td>
           </tr>
         </table>
-        <p>
-          <mat-form-field appearance="fill">
-            <mat-label>Fecha Nacimiento</mat-label>
-            <input
-              formControlName="fechaDeNacimiento"
-              matInput
-              [matDatepicker]="Nacimientopicker"
-            />
-            <mat-datepicker-toggle
-              matIconSuffix
-              [for]="Nacimientopicker"
-            ></mat-datepicker-toggle>
-            <mat-datepicker #Nacimientopicker></mat-datepicker>
-          </mat-form-field>
-        </p>
-        <div>
-          <button mat-button (click)="cancelar(stepper)">Cancelar</button>
-          <button mat-button matStepperNext (click)="guardarEmpelado()">
+        <div align="end">
+          <button mat-button color="warn" (click)="cancelar(stepper)">
+            Cancelar
+          </button>
+          <button mat-button matStepperPrevious #btnRegresar>Regresar</button>
+          <button
+            mat-button
+            matStepperNext
+            color="primary"
+            (click)="guardarEmpelado()"
+          >
             Guardar
           </button>
         </div>

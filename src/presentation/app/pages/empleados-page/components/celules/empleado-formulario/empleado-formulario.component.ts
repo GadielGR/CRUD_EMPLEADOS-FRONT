@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Empleado } from 'src/domain/models/empleado.model';
 import { EmpleadoForm, beneficiarioForm } from '../../../empleado-form';
+import { ModalService } from 'src/presentation/app/shared/services/modal.service';
 
 @Component({
   selector: 'app-empleado-formulario',
@@ -36,7 +37,8 @@ export class EmpleadoFormularioComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public empleado: Empleado,
     private dialogRef: MatDialogRef<EmpleadoFormularioComponent>,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private modalService: ModalService
   ) {}
 
   ngOnInit(): void {
@@ -85,9 +87,18 @@ export class EmpleadoFormularioComponent {
   }
 
   guardarEmpelado() {
-    this.empleadoForm.controls.beneficiario.setValue(
-      this.beneficiarioForm.value
-    );
-    this.dialogRef.close(this.empleadoForm.value as Empleado);
+    if (this.empleadoForm.valid && this.beneficiarioForm.valid) {
+      this.empleadoForm.controls.beneficiario.setValue(
+        this.beneficiarioForm.value
+      );
+      this.dialogRef.close(this.empleadoForm.value as Empleado);
+    } else {
+      if (!this.empleadoForm.valid) {
+        this.modalService.showModalMessage(
+          'Alerta!',
+          'Por favor llene todos los campos requeridos.'
+        );
+      }
+    }
   }
 }

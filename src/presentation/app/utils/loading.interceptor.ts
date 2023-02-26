@@ -31,4 +31,9 @@ export class LoadingInterceptor implements HttpInterceptor {
       })
     );
   }
+
+
+  agregarHeader(request: HttpRequest<unknown>) {
+      request.headers.append("Content-Type","application/json; charset=utf-8")
+  }
 }
